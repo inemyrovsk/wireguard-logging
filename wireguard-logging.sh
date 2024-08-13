@@ -9,7 +9,7 @@ threshold=300 # 5 minutes in seconds.. anything below that means user connected,
 connection_info_file=/var/log/wireguard/connected_clients.info
 log_file=/var/log/wireguard/wireguard.log
 notification_email=YOUR_EMAIL
-notify_by_email=yes
+notify_by_email=no
 #Configuration End
 
 # Functions Declarations
@@ -88,7 +88,7 @@ do
                 fi
 
                 duration=$((hour_seconds + minute_seconds + second_seconds))
-                user=`grep -rl ${peer} /etc/wireguard/clients/ | awk -F'/' {'print $5'}`
+                user=`grep -rl ${peer} /root/ | awk -F'/' {'print $5'}`
                 #echo "User: $user , Duration: $duration, Peer: $peer, IP: $endpoint, Threshold: $threshold"
                 if [ $duration -le $threshold ];then
                         touch ${connection_info_file} ${log_file}
